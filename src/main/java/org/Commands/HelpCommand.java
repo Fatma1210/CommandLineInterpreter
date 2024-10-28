@@ -10,9 +10,16 @@ public class HelpCommand {
                 "ls -r : List Files in Reverse Order\n" +
                 "mkdir : Make Directory\n" +
                 "rmdir : Remove Directory\n" +
-                "touch : Create a New File or Update a File's Timestamp\n" +
+                " 'touch-command' options :\n" +
+                "  -a: Only change the access time.\n" +
+                "  -m: Only change the modification time.\n" +
+                "  -c: Do not create a file if it does not exist (no error message will appear).\n" +
+                "  -t: create a custom timestamp for the file.\n"+
                 "mv : Move or Rename Files/Directories\n" +
-                "rm : Remove Files\n" +
+                "rm options : \n" +
+                "  -i: confirmation needed before the deletion is completed.\n" +
+                "  -v: a detailed output for each file or directory that is deleted..\n" +
+                "  -r: deletes directories.\n" +
                 "cat : Concatenate and Display Files\n" +
                 "> : Output Redirection\n" +
                 ">> : Append Output Redirection\n" +
