@@ -2,6 +2,7 @@ package org.CommandsFactory;
 import org.Commands.*;
 
 import java.io.IOException;
+import java.nio.file.DirectoryNotEmptyException;
 import java.nio.file.NoSuchFileException;
 import java.io.File;
 import java.util.regex.Matcher;
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class commandsFactory {
-    public void CommandsFactory(String command , String inputPath) {
+    public void CommandsFactory(String command , String inputPath) throws IOException {
         switch (command) {
             case "cd": {
                 cdCommand cdCommand = new cdCommand();
@@ -109,10 +110,36 @@ public class commandsFactory {
                 break;
             }
             case "rmdir" : {
+                RmdirCommand rmdirCommand = new RmdirCommand();
+                rmdirCommand.rmdir(inputPath);
+                break;
             }
-            case "touch" : {}
-            case "mv" : {}
-            case "rm" : {}
+            case "touch": {
+                TouchCommand touchCommand = new TouchCommand();
+                touchCommand.touch(inputPath); // Pass the Path variable to the touch method
+                break;
+            }
+            case "mv" : {
+                MvCommand mvCommand = new MvCommand();
+
+                // Assuming inputPath holds the source and destination paths separated by a space
+                String[] paths = inputPath.split(" ");
+
+                if (paths.length < 2) {
+                    System.out.println("Error: Missing source or destination path for mv command.");
+                } else {
+                    String sourcePath = paths[0];
+                    String destinationPath = paths[1];
+                    mvCommand.mv(sourcePath, destinationPath);
+                }
+                break;
+            }
+            case "rm" : {
+                Rmcommand rmCommand = new Rmcommand();
+                String[] args = inputPath.split(" ");
+                rmCommand.rm(args);
+                break;
+            }
             case "cat" : {}
             case ">" :{ }
             case ">>" : {}
