@@ -25,7 +25,6 @@ public class Rmcommand {
     private void deleteFileOrDirectory(String path, boolean v, boolean i, boolean r) {
         File file = new File(path);
 
-
         if (!file.exists()) {
             System.out.println("File or directory does not exist: " + path);
             return;
@@ -44,8 +43,7 @@ public class Rmcommand {
 
     private void handleFileDeletion(File file, boolean verbose, boolean interactive) {
         if (interactive) {
-            // Ask for confirmation before deleting
-            System.out.print("Are you sure you want to delete the file '" + file.getName() + "'? (yes/no): ");
+            System.out.print("Are you sure you want to delete the file '" + file.getName() + "'? (y/n): ");
             Scanner scanner = new Scanner(System.in);
             String response = scanner.nextLine();
 
@@ -57,14 +55,15 @@ public class Rmcommand {
 
         boolean deleted = file.delete();
         if (deleted) {
-            if (verbose) {
-                System.out.println("Deleted file: " + file.getAbsolutePath());
+            // Print the deletion confirmation regardless if in interactive mode
+            if (interactive || verbose) {
+                System.out.println("Successfully deleted file: " + file.getName());
             }
-            System.out.println("Successfully deleted file: " + file.getName());
         } else {
             System.out.println("Failed to delete file: " + file.getAbsolutePath());
         }
     }
+
 
     private void deleteDirectory(File directory, boolean verbose, boolean interactive) {
         File[] files = directory.listFiles();
@@ -74,7 +73,6 @@ public class Rmcommand {
                 if (file.isDirectory()) {
                     deleteDirectory(file, verbose, interactive);
                 } else {
-
                     handleFileDeletion(file, verbose, interactive);
                 }
             }
@@ -84,8 +82,9 @@ public class Rmcommand {
         if (deletedDir) {
             if (verbose) {
                 System.out.println("Deleted directory: " + directory.getAbsolutePath());
+            } else {
+                System.out.println("Successfully deleted directory: " + directory.getName());
             }
-            System.out.println("Successfully deleted directory: " + directory.getName());
         } else {
             System.out.println("Failed to delete directory: " + directory.getAbsolutePath());
         }
