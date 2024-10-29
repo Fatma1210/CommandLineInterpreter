@@ -47,7 +47,7 @@ public class Rmcommand {
             Scanner scanner = new Scanner(System.in);
             String response = scanner.nextLine();
 
-            if (response.equalsIgnoreCase("no")) {
+            if (response.equalsIgnoreCase("n")) {
                 System.out.println("Deletion cancelled for: " + file.getName());
                 return;
             }
