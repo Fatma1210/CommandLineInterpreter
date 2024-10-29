@@ -19,10 +19,10 @@ public class TouchCommand {
         String customTime = null;
         String fileName = null;
 
-        // Split arguments by space
+
         String[] arguments = args.split(" ");
         Set<String> validOptions = new HashSet<>(Set.of("-a", "-m", "-c"));
-        // Process arguments
+
         for (String arg : arguments) {
             if (arg.equals("-a")) {
                 updateAccessTime = true;
