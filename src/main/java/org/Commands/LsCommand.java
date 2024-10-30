@@ -23,7 +23,7 @@ public class LsCommand {
     }
 
     // Lists all files in a specified directory, optionally showing hidden files and in reverse order
-    public void ls(String sourcePath, boolean showHidden, boolean reverseOrder) throws NoSuchFileException {
+    public List<String> ls(String sourcePath, boolean showHidden, boolean reverseOrder) throws NoSuchFileException {
         File f = makeAbsolute(sourcePath);
         if (!f.exists()) {
             throw new NoSuchFileException(f.getAbsolutePath(), null, "does not exist.");
@@ -51,11 +51,12 @@ public class LsCommand {
             for (String fileName : fileList) {
                 System.out.println(fileName);
             }
+            return fileList;
         }
     }
 
     // Lists all files in the current working directory, optionally showing hidden files and in reverse order
-    public void ls(boolean showHidden, boolean reverseOrder) {
+    public List<String> ls(boolean showHidden, boolean reverseOrder) {
         if (!workingDirectory.isDirectory()) {
             throw new IllegalArgumentException(workingDirectory.getAbsolutePath() + " is not a directory.");
         }
@@ -79,5 +80,6 @@ public class LsCommand {
         for (String fileName : fileList) {
             System.out.println(fileName);
         }
+        return fileList;
     }
 }
