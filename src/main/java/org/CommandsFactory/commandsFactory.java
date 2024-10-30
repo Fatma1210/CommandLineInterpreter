@@ -64,12 +64,16 @@ public class commandsFactory {
                     inputPath = inputPath.replace("-a", "").replace("-r", "").trim();
                 }
                 try {
+                    List<String> fileList;
                     if (inputPath != null && !inputPath.isEmpty()) {
                         // If a path is provided, use it
-                        lsCommand.ls(inputPath, showHidden,reverseOrder);
+                        fileList=lsCommand.ls(inputPath, showHidden,reverseOrder);
                     } else {
                         // If no path is provided, display the contents of the current directory
-                        lsCommand.ls(showHidden,reverseOrder);
+                        fileList=lsCommand.ls(showHidden,reverseOrder);
+                    }
+                    for (String fileName : fileList) {
+                        System.out.println(fileName);
                     }
                 } catch (IllegalArgumentException e) {
                     System.err.println(e.getMessage()); // Handle both empty directory and not a directory exceptions

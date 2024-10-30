@@ -47,10 +47,6 @@ public class LsCommand {
             if (reverseOrder) {
                 Collections.reverse(fileList);
             }
-            // Print the files
-            for (String fileName : fileList) {
-                System.out.println(fileName);
-            }
             return fileList;
         }
     }
@@ -75,10 +71,6 @@ public class LsCommand {
         // Sort in reverse order if specified
         if (reverseOrder) {
             Collections.reverse(fileList);
-        }
-        // Print the files
-        for (String fileName : fileList) {
-            System.out.println(fileName);
         }
         return fileList;
     }
