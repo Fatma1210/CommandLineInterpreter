@@ -1,6 +1,7 @@
 package org.CommandsFactory;
 import org.Commands.*;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.DirectoryNotEmptyException;
 import java.nio.file.NoSuchFileException;
@@ -140,10 +141,37 @@ public class commandsFactory {
                 rmCommand.rm(args);
                 break;
             }
-            case "cat" : {}
-            case ">" :{ }
-            case ">>" : {}
-            case "|" : {}
+            case "cat" : {
+                File currentDir = new File(System.getProperty("user.dir"));
+                catCommand catCommand = new catCommand(currentDir);
+                catCommand.cat(inputPath);
+                break;
+            }
+
+            case ">" :{
+                String[] parts = inputPath.split(">",2);
+                String text = parts[0].trim();
+                String file = parts[1].trim();
+                OutputCommand outputCommand = new OutputCommand();
+                outputCommand.output(text,file);
+                break;
+            }
+            case ">>" : {
+                String[] parts = inputPath.split(">>",2);
+                String text = parts[0].trim();
+                String file = parts[1].trim();
+                AppendCommand appendCommand = new AppendCommand();
+                appendCommand.append(text,file);
+                break;
+            }
+            case "|" : {
+                String[] parts = inputPath.split("\\|",2);
+                String firstCommand = parts[0].trim();
+                String secondCommand = parts[1].trim();
+                PipeCommand pipeCommand = new PipeCommand();
+                pipeCommand.pipe(firstCommand,secondCommand);
+                break;
+            }
             default:
             System.out.println("This Command does not exist,Enter a correct command");
         }
