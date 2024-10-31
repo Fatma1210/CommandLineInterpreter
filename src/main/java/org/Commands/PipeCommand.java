@@ -52,6 +52,10 @@ public class PipeCommand {
                 case "cat":{
                     File currentDir = new File(System.getProperty("user.dir"));
                     catCommand catcommand = new catCommand(currentDir);
+                    String[] parts = remaining2.split(" ");
+                    for (String part : parts) {
+                        output.add(part);
+                    }
                     catcommand.cat(output);
                     break;
                 }
