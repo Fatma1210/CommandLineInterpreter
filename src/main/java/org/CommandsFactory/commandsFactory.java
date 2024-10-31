@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.nio.file.DirectoryNotEmptyException;
 import java.nio.file.NoSuchFileException;
 import java.io.File;
+import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.ArrayList;
@@ -42,7 +43,7 @@ public class commandsFactory {
             case "help" :{
                 HelpCommand helpCommand = new HelpCommand() ;
                 System.out.println(helpCommand.help());
-                 break;
+                break;
             }
             case "ls" : {
                 // Set the current working directory
@@ -148,12 +149,19 @@ public class commandsFactory {
             case "cat" : {
                 File currentDir = new File(System.getProperty("user.dir"));
                 catCommand catCommand = new catCommand(currentDir);
-                catCommand.cat(inputPath);
+                String[] parts = inputPath.split(" ");
+                List<String> files = new ArrayList<>(Arrays.asList(parts));
+
+                catCommand.cat(files);
                 break;
             }
 
             case ">" :{
                 String[] parts = inputPath.split(">",2);
+                if (parts.length < 2) {
+                    System.out.println("Invalid command format. Usage should be: <text> > <filename>");
+                    break;
+                }
                 String text = parts[0].trim();
                 String file = parts[1].trim();
                 OutputCommand outputCommand = new OutputCommand();
@@ -162,6 +170,10 @@ public class commandsFactory {
             }
             case ">>" : {
                 String[] parts = inputPath.split(">>",2);
+                if (parts.length < 2) {
+                    System.out.println("Invalid command format. Usage should be: <text> >> <filename>");
+                    break;
+                }
                 String text = parts[0].trim();
                 String file = parts[1].trim();
                 AppendCommand appendCommand = new AppendCommand();
@@ -170,6 +182,10 @@ public class commandsFactory {
             }
             case "|" : {
                 String[] parts = inputPath.split("\\|",2);
+                if (parts.length < 2) {
+                    System.out.println("Invalid command format. Usage should be: <command1> | <command2>");
+                    break;
+                }
                 String firstCommand = parts[0].trim();
                 String secondCommand = parts[1].trim();
                 PipeCommand pipeCommand = new PipeCommand();
@@ -177,7 +193,7 @@ public class commandsFactory {
                 break;
             }
             default:
-            System.out.println("This Command does not exist,Enter a correct command");
+                System.out.println("This Command does not exist,Enter a correct command");
         }
     }
 }
