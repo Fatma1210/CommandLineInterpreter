@@ -14,7 +14,7 @@ public class catCommand {
     public void cat(List<String> Sel_files_array) throws IOException {
         try {
             StringBuilder combinedContent = new StringBuilder();
-            if (Sel_files_array.size() == 0) {
+            if (Sel_files_array.isEmpty()) {
                 System.out.println("No files found");
             }
             else{
@@ -30,8 +30,8 @@ public class catCommand {
                     }
                 } else {
                     for (String file : Sel_files_array) {
-                        if (file.endsWith(".txt")) {
-                            String content = new String(Files.readAllBytes(Paths.get(workingDirectory.getAbsolutePath(), file)));
+                        if (file.contains(".txt")) {
+                            String content = new String(Files.readAllBytes(Paths.get(workingDirectory.getAbsolutePath(), file.trim())));
                             combinedContent.append(content).append("\n");
                         } else if (file.equals(">")) {
                             String Combined = combinedContent.toString();
