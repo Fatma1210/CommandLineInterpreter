@@ -7,15 +7,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.List;
 
 public class PipeCommand {
     // split the command line into command and remaining
-    private String[] SplitingCommandLine(String commandline) {
+    public String[] SplitingCommandLine(String commandline) {
         int SpaceIndex = commandline.indexOf(' ');
         String command="",remaining = "";
         if (SpaceIndex != -1) {
@@ -84,11 +79,11 @@ public class PipeCommand {
         }
     }
 
-    List<String> sort(List<String> list){
+    public List<String> sort(List<String> list){
         Collections.sort(list);
         return list;
     }
-    List<String> uniq(List<String> list){
+    public List<String> uniq(List<String> list){
         List<String> unique = new ArrayList<String>();
         String previous = "";
         for (String s: list){
