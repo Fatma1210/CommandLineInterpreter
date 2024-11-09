@@ -57,5 +57,14 @@ class RmdirCommandTest {
 
         tempFile.delete();
     }
+    @Test
+    void givenNonEmptyDirectory_thenDirectoryShouldNotBeDeleted(@TempDir Path tempDir) throws IOException { // this test creates a directory that contains a file (non-empty directory)
+      // and attempts to delete it
+
+        File nonEmptyDir = tempDir.toFile();
+        new File(nonEmptyDir, "file.txt").createNewFile();
+        rmdirCommand.rmdir(nonEmptyDir.getAbsolutePath());
+        assertTrue(nonEmptyDir.exists());
+    }
 
 }
