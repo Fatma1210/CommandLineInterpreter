@@ -10,14 +10,28 @@ public class Main {
         commandsFactory Factory = new commandsFactory();
         while (true) {
             String inputCommand = scanner.nextLine();
-            int SpaceIndex = inputCommand.indexOf(' ');
-            String command = "", Path = "";
-            if(SpaceIndex != -1){
-                command = inputCommand.substring(0, SpaceIndex);
-                Path = inputCommand.substring(SpaceIndex + 1);
+            String command = "";
+            if (inputCommand.contains("|")){
+                command = "|";
+                Factory.CommandsFactory(command.toLowerCase(), inputCommand);
             }
-            else command = inputCommand ;
-            Factory.CommandsFactory(command.toLowerCase(), Path);
+            else if (inputCommand.contains(">>") && !inputCommand.contains("cat")){
+                command = ">>";
+                Factory.CommandsFactory(command.toLowerCase(), inputCommand);
+            }
+            else if (inputCommand.contains(">") && !inputCommand.contains("cat")){
+                command = ">";
+                Factory.CommandsFactory(command.toLowerCase(), inputCommand);
+            }
+            else {
+                int SpaceIndex = inputCommand.indexOf(' ');
+                String Path = "";
+                if (SpaceIndex != -1) {
+                    command = inputCommand.substring(0, SpaceIndex);
+                    Path = inputCommand.substring(SpaceIndex + 1);
+                } else command = inputCommand;
+                Factory.CommandsFactory(command.toLowerCase(), Path);
+            }
         }
     }
 }
